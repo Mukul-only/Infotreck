@@ -13,6 +13,21 @@ gsap.ticker.add((time) => {
 // Disable lag smoothing in GSAP to prevent any delay in scroll animations
 gsap.ticker.lagSmoothing(0);
 
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
+    const targetId = this.getAttribute("href").substring(1);
+    const targetElement = document.getElementById(targetId);
+
+    if (targetElement) {
+      lenis.scrollTo(targetElement, {
+        duration: 2, // Duration in seconds (increase this value to slow down)
+        easing: (t) => 1 - Math.pow(1 - t, 3), // Cubic easing function for a smooth effect
+      });
+    }
+  });
+});
+
 const hero = document.querySelector(".hero");
 const bg = document.querySelectorAll('div[class*="layer-"]');
 
